@@ -8,8 +8,12 @@ body {
     overflow: hidden;
 }
 
-canvas {
-    display: block;
+.canvas-wrapper {
+  text-align: center;
+}
+
+.canvas-wrapper canvas {
+    display: inline-block;
     width: 500px;
     height: 300px;
 }

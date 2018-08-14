@@ -7,6 +7,8 @@ window.onload = function() {
         let value = getDataFromInput()
         getStreamUrl(value).then(url => {
             document.querySelector("#soundcloud").src = url
+            initSource();
+            draw();
         }).catch(e => {
             console.log(e);
         })
