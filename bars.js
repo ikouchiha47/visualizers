@@ -1,9 +1,13 @@
+const WIDTH = 500;
+const HEIGHT = 300;
 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 let analyser = audioCtx.createAnalyser();
 
 let audio = document.querySelector("#soundcloud");
 let canvas = document.querySelector("canvas");
 let source = audioCtx.createMediaElementSource(audio);
+canvas.width = WIDTH;
+canvas.height = HEIGHT;
 let context = canvas.getContext('2d')
 
 source.connect(analyser);
@@ -15,13 +19,13 @@ let bufferLength = analyser.frequencyBinCount;
 console.log(bufferLength);
 let dataArray = new Uint8Array(bufferLength);
 
-canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+context.clearRect(0, 0, WIDTH, HEIGHT);
 
 function draw() {
     requestAnimationFrame(draw);
     analyser.getByteFrequencyData(dataArray);
     
-    canvasCtx.fillStyle = 'rgb(0, 0, 0)';
-    canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+    context.fillStyle = 'rgb(0, 0, 0)';
+    context.clearRect(0, 0, WIDTH, HEIGHT);
     
 }
