@@ -26,3 +26,8 @@ function byteFrequencyAverage(analyser, frequencies, minHz, maxHz, norm = 255) {
 
   return count ? sum/count : 0
 }
+
+function random(len, clamp) {
+  let val = Math.floor(Math.random() * Math.pow(10, len))
+  return clamp ? val % clamp : val
+}

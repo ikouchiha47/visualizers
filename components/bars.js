@@ -1,12 +1,7 @@
-var Bars = (function (canvas) {
+var Bars = (function (analyser, canvas, context) {
   const WIDTH = canvas.width;
   const HEIGHT = canvas.height;
 
-  let context = canvas.getContext('2d')
-  let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  let analyser = audioCtx.createAnalyser();
-
-  let audio = document.querySelector("#soundcloud");
   // https://www.teachmeaudio.com/mixing/techniques/audio-spectrum/
   let bands = {
     subbas: {
@@ -51,23 +46,6 @@ var Bars = (function (canvas) {
     }
   }
 
-  function initSource() {
-    let dataArray = new Uint8Array();
-    let bufferLength = 0;
-    let source = audioCtx.createMediaElementSource(audio);
-
-    source.connect(analyser);
-    analyser.connect(audioCtx.destination);
-
-    analyser.fftSize = 1024;
-    bufferLength = analyser.frequencyBinCount;
-
-    dataArray = new Uint8Array(bufferLength);
-
-    context.clearRect(0, 0, WIDTH, HEIGHT);
-    return { dataArray: dataArray, bufferLength: bufferLength }
-  }
-
   function withAudioDetails(dataArray, bufferLength) {
     return function draw() {
       requestAnimationFrame(draw);
@@ -108,25 +86,10 @@ var Bars = (function (canvas) {
 
         x += barWidth + 6;
       }
-
-      // let barWidth = (WIDTH / bufferLength) * 2.5;
-      // let barHeight;
-      // let x = 0;
-
-      // for(let i = 0; i < bufferLength; i++) {
-      //   barHeight = dataArray[i]/2;
-      //   console.log(dataArray[i], i)
-
-      //   context.fillStyle = 'rgb(' + (barHeight+100) + ',50,50)';
-      //   context.fillRect(x,HEIGHT-barHeight/2,barWidth,barHeight);
-
-      //   x += barWidth + 1;
-      // }
     }
   }
 
   return {
-    initSource: initSource,
     withAudioDetails: withAudioDetails
   }
 })
