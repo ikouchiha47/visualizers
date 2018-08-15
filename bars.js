@@ -96,10 +96,15 @@ var Bars = (function (canvas) {
       ]
       for (let i = 0; i < freqs.length; i++) {
         let rgb = `rgb(${ Object.values(colors[i]).join(',') })`
-        context.shadowBlur = 10;
+        context.shadowBlur = 6;
         context.shadowColor = rgb
         context.fillStyle = rgb; //`rgb(${freqs[i] + 100}, 50, 50)`
-        context.fillRect(x, HEIGHT, barWidth, -1 * freqs[i] * bands[bandkeys[i]].scale)
+
+        let heightSlice = 6
+        let barHeight = freqs[i] * bands[bandkeys[i]].scale
+        for(let j = 0; j < Math.floor(barHeight / heightSlice); j++) {
+          context.fillRect(x, HEIGHT - (j * 8), barWidth, -1 * heightSlice)
+        }
 
         x += barWidth + 6;
       }
