@@ -73,7 +73,7 @@ var Bars = (function (canvas) {
       requestAnimationFrame(draw);
       analyser.getByteFrequencyData(dataArray);
 
-      context.fillStyle = 'rgb(0, 0, 0)';
+      context.fillStyle = 'rgb(34, 48, 38)';
       context.clearRect(0, 0, WIDTH, HEIGHT);
 
       let bandkeys = Object.keys(bands)
@@ -84,11 +84,24 @@ var Bars = (function (canvas) {
       let barWidth = 20;
       let x = 0;
 
+      let colors = [
+        {r: 255, g: 0, b: 255},
+        {r: 15, g: 60, b: 255},
+        {r: 0, g: 233, b: 255},
+        {r: 0, g: 255, b: 64},
+        {r: 212, g: 213, b: 0},
+        {r: 212, g: 213, b: 0},
+        {r: 255, g: 15,  b: 0},
+        {r: 255, g: 0,   b: 0},
+      ]
       for (let i = 0; i < freqs.length; i++) {
-        context.fillStyle = `rgb(${freqs[i] + 100}, 50, 50)`
+        let rgb = `rgb(${ Object.values(colors[i]).join(',') })`
+        context.shadowBlur = 10;
+        context.shadowColor = rgb
+        context.fillStyle = rgb; //`rgb(${freqs[i] + 100}, 50, 50)`
         context.fillRect(x, HEIGHT, barWidth, -1 * freqs[i] * bands[bandkeys[i]].scale)
 
-        x += barWidth + 1;
+        x += barWidth + 6;
       }
 
       // let barWidth = (WIDTH / bufferLength) * 2.5;
