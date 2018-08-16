@@ -13,4 +13,8 @@ Screens
 
 #### bars
 
-![Shot](https://raw.github.com/ikouchiha47/visualizers/master/screenshots/barjs.png)
+![Shot](https://raw.github.com/ikouchiha47/visualizers/master/screenshots/bars.png)
+
+#### circle
+
+![Shot](https://raw.github.com/ikouchiha47/visualizers/master/screenshots/circle.png)
