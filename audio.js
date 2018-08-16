@@ -63,22 +63,22 @@ function byteFrequencyAverage2(frequencies) {
     if(hz < 100) {
       groups.sublow.value += freq
       groups.sublow.count += 1
-    } elseif(hz < 250) {
+    } else if(hz < 250) {
       groups.low.value += freq
       groups.low.count += 1
-    } elseif(hz < 500) {
+    } else if(hz < 500) {
       groups.lowmid.value += freq
       groups.lowmid.count += 1
-    } elseif(hz < 1000) {
+    } else if(hz < 1000) {
       groups.mid.value += freq
       groups.mid.count += 1
-    } elseif(hz < 5000) {
+    } else if(hz < 5000) {
       groups.highmid.value += freq
       groups.highmid.count += 1
-    } elseif(hz < 10000) {
+    } else if(hz < 10000) {
       groups.high.value += freq
       groups.high.count += 1
-    } elseif(hz < 20000) {
+    } else if(hz < 20000) {
       groups.superhigh.value += freq
       groups.superhigh.count += 1
     }

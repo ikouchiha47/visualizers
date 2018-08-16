@@ -48,22 +48,22 @@ var Bars = (function (analyser, canvas, context) {
     },
     uppermid3: {
       from: 4001,
-      to: 5000,
+      to: 4500,
       scale: 0.5,
       color: {r: 255, g: 0,  b: 0}
     },
     presence: {
-      from: 50001,
-      to: 8000,
-      scale: 0.2,
+      from: 4501,
+      to: 5000,
+      scale: 0.5,
       color: {r: 255, g: 35, b: 0 }
     },
-    presence2: {
-      from: 80001,
-      to: 12000,
-      scale: 2,
-      color: {r: 224, g: 0, b: 5 }// {r: 255, g: 0, b: 0},
-    }
+    //presence2: {
+    //  from: 50001,
+    //  to: 12000,
+    //  scale: 2,
+    //  color: {r: 224, g: 0, b: 5 }// {r: 255, g: 0, b: 0},
+    //}
   }
   
   function withAudioDetails(dataArray, bufferLength) {
