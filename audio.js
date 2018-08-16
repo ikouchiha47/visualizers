@@ -27,16 +27,22 @@ function byteFrequencyAverage(analyser, frequencies, minHz, maxHz, norm = 255) {
   return count ? sum/count : 0
 }
 
+function clamp(val, min, max) {
+  return min < max ?
+    val < min ? min : val > max ? max : val :
+    val < max ? max : val > min ? min : val
+}
+
 function random(len, clamp) {
   let val = Math.floor(Math.random() * Math.pow(10, len))
   return clamp ? val % clamp : val
 }
 
-function hertzFactor(analyser) {
-  return analyser.context.sampleRate / analyser.fftSize
+function hertzFactor(sampleRate, fftSize) {
+  return sampleRate / fftSize
 }
 
-function byteFrequencyAverage2(frequencies) {
+function byteFrequencyAverage2(frequencies, sampleRate, fftSize) {
  /*
   *  1. Sub Lows 20-100
   *  2. Lows 100-250
@@ -48,17 +54,17 @@ function byteFrequencyAverage2(frequencies) {
   */
 
   let groups = {
-    sublow: { value: 0, count: 0 },
-    low: { value: 0, count: 0 },
-    lowmid: { value: 0, count: 0 },
-    mid: { value: 0, count: 0 },
-    highmid: { value: 0, count: 0 },
-    high: { value: 0, count: 0 },
-    superhigh: { value: 0, count: 0 }
+    sublow: { value: 0, count: 0, scale: 0.4 },
+    low: { value: 0, count: 0, scale: 0.5 },
+    lowmid: { value: 0, count: 0, scale: 0.5 },
+    mid: { value: 0, count: 0, scale: 1 },
+    highmid: { value: 0, count: 0, scale: 1 },
+    high: { value: 0, count: 0, scale: 1.2 },
+    superhigh: { value: 0, count: 0, scale: 1 }
   }
 
   groups = frequencies.reduce((acc, freq, i) => {
-    let hz = Math.round((i + 1) * hertzFactor)
+    let hz = Math.round((i + 1) * hertzFactor(sampleRate, fftSize))
 
     if(hz < 100) {
       groups.sublow.value += freq

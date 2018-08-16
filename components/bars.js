@@ -68,7 +68,7 @@ var Bars = (function (analyser, canvas, context) {
   
   function withAudioDetails(dataArray, bufferLength) {
     return function draw() {
-      requestAnimationFrame(draw);
+      let drawer = requestAnimationFrame(draw);
       analyser.getByteFrequencyData(dataArray);
       
       context.fillStyle = 'rgb(0,0,0)';
@@ -115,11 +115,13 @@ var Bars = (function (analyser, canvas, context) {
       
       x += barWidth + 6;
     }
+
+    return drawer
   }
 }
 
-return {
-  withAudioDetails: withAudioDetails
-}
+  return {
+    withAudioDetails: withAudioDetails
+  }
 })
 

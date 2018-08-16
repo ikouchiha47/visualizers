@@ -20,10 +20,12 @@ window.onload = function () {
     
     function displayBars(bars, data) {
         let render = bars.withAudioDetails(data.dataArray, data.bufferLength)
-        render();
+        drawer = render();
     }
     
-    function displayCircles(round, data) {}
+    function displayCircles(round, data) {
+      drawer = round.withAudioDetails(data.dataArray, data.bufferLength)()
+    }
 
     function initSource() {
         let audio = document.querySelector("#soundcloud");
@@ -54,8 +56,14 @@ window.onload = function () {
     //let bars = Bars(analyser, canvas, context)
     let round = Round(analyser, canvas, context)
     let data = initSource();
+    let drawer;
+    let soundcloud = document.querySelector("#soundcloud")
+    soundcloud.addEventListener('play', () => {
+        //displayBars(bars, data)
+        displayCircles(round, data)
+    })
 
-    document.querySelector("#soundcloud").addEventListener('play', () => {
-        displayBars(bars, data)
+    soundcloud.addEventListener('pause', () => {
+      if(drawer) cancelAnimationFrame(drawer)
     })
 }
