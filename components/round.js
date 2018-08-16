@@ -34,9 +34,18 @@ var Round = (function(analyser, canvas, context) {
         let alfa = +(parseFloat(rad / maxRad).toFixed(1))
         
         context.beginPath();
-        context.fillStyle = colors[freq].replace('alfa', alfa)
         context.arc(x, y, rad, 0, 2 * Math.PI);
-        context.fill()
+        if((rad / maxRad) >= 0.9) { 
+          context.strokeStyle = colors[freq].replace('alfa', alfa)
+          context.lineWidth = 2;
+          context.stroke()
+          context.fillStyle = colors[freq].replace('alfa', 0.2)
+          context.fill()
+
+        } else {
+          context.fillStyle = colors[freq].replace('alfa', alfa)
+          context.fill()
+        }
       })
 
       return drawer
