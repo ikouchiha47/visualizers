@@ -13,16 +13,18 @@ window.onload = function () {
         })
     }
     
-    function displayBars(bars, data) {
-        bars.withAudioDetails(data.dataArray, data.bufferLength)();
-    }
-    
     function getStreamUrl(value) {
         let url = `http://localhost:8000?url=${value}`
         return fetch(url).then(resp => resp.json()).then(data => data.url)
     }
     
+    function displayBars(bars, data) {
+        let render = bars.withAudioDetails(data.dataArray, data.bufferLength)
+        render();
+    }
     
+    function displayCircles(round, data) {}
+
     function initSource() {
         let audio = document.querySelector("#soundcloud");
         let dataArray = new Uint8Array();
@@ -40,8 +42,7 @@ window.onload = function () {
         context.clearRect(0, 0, 500, 300);
         return { dataArray: dataArray, bufferLength: bufferLength }
     }
-    
-    
+
     let canvas = document.querySelector("canvas");
     canvas.width = 500;
     canvas.height = 300;
@@ -50,9 +51,10 @@ window.onload = function () {
     let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     let analyser = audioCtx.createAnalyser();
     
-    let bars = Bars(analyser, canvas, context)
+    //let bars = Bars(analyser, canvas, context)
+    let round = Round(analyser, canvas, context)
     let data = initSource();
-    
+
     document.querySelector("#soundcloud").addEventListener('play', () => {
         displayBars(bars, data)
     })
